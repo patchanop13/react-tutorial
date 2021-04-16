@@ -6,11 +6,19 @@ import {th} from 'date-fns/locale'
 import {BsEyeFill} from 'react-icons/bs'
 import {Link} from 'react-router-dom'
 
+import {addToCart} from '../redux/actions/cartAction'
+import {useDispatch,useSelector} from 'react-redux'
+
 const ProductPage = () => {
   const [product,setProduct] = React.useState([])
   const [loading,setLoading] = React.useState(false)
   const [error,setError] = React.useState(null)
   const cancelToken = React.useRef(null)
+
+  const dispatch = useDispatch()
+  const cart = useSelector(state=>state.cartReducer.cart)
+  const total = useSelector(state=>state.cartReducer.total)
+
   const getData = async() => {
     try{
         setLoading(true)
@@ -49,11 +57,25 @@ const ProductPage = () => {
       )
   }
 
+  const addCart = (p) => {
+    // console.log(p)
+    const product={
+      id:p.id,
+      name:p.title,
+      price:p.view, //สมมติว่าp.view คือ ราคา
+      qty:1
+    }
+    dispatch(addToCart(product,cart))
+  }
+
   return (
     <div className="container">
       <div className="row mt-4">
         <div className="col-md-12">
           <h2>สินค้า</h2>
+          {
+            total>0 && <h4>ซื้อแล้ว {total} ชิ้น</h4>
+          }
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -89,6 +111,9 @@ const ProductPage = () => {
                                 <Link to={`/detail/${product.id}/title/${product.title}`}>
                                     <BsEyeFill/>
                                 </Link>
+                                <button onClick={()=>addCart(product)} className="btn btn-outline-success ml-2">
+                                  หยิบใส่ตะกร้า
+                                </button>
                             </td>
                         </tr>
                     )

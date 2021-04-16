@@ -12,6 +12,7 @@ const NavBar = () => {
   // const userStore = React.useContext(UserStoreContext)
 
   const profileRedux = useSelector((state)=>state.authReducer.profile)
+  const total = useSelector((state)=>state.cartReducer.total)
   const dispatch = useDispatch()
 
   // const getProfile=()=>{
@@ -93,6 +94,9 @@ const NavBar = () => {
             <NavLink className="nav-link" to="/about" exact activeClassName="active">
                 เกี่ยวกับเรา
             </NavLink>
+            <NavLink className="nav-link" to="/cart" exact activeClassName="active">
+                ตะกร้าสินค้า {total} ชิ้น
+            </NavLink>
             <NavDropdown title="Workshop (Pagination + CRUD)" id="basic-nav-dropdown">
               <NavDropdown.Item onClick={()=>{
                 history.replace('/hospital')
@@ -107,6 +111,9 @@ const NavBar = () => {
             </NavLink>
             <NavLink className="nav-link" to="/member" exact activeClassName="active">
                 เมนูสมาชิก
+            </NavLink>
+            <NavLink className="nav-link" to="/chart" exact activeClassName="active">
+                รายงาน Charts
             </NavLink>
           </Nav>
           {/* {

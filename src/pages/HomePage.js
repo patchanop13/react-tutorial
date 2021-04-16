@@ -54,7 +54,7 @@ const HomePage = () => {
           <div className="container">
             <h1 className="display-3">ยินดีต้อนรับทุกคน</h1>
             <p>
-              เว็บนี้พัฒนาดวย React เป็นคอร์สเรียนวิดิโอออนไลน์จาก Patchanop.com
+              เว็บนี้พัฒนาด้วย React เป็นคอร์สเรียนวิดิโอออนไลน์จาก Patchanop.com
               by Job <BsFillHeartFill color="red" size="2em" />
             </p>
             <p>
@@ -70,10 +70,13 @@ const HomePage = () => {
         </div>
         <div className="container">
           {/* Example row of columns */}
+          <div className="mx-auto">
+              {isFetching?'กำลังอัปเดต...':'⠀'}
+          </div>
           <div className="row">
-            <div className="mx-auto">
+            {/* <div className="mx-auto">
               {isFetching?'กำลังอัปเดต...':null}
-            </div>
+            </div> */}
             {data.data.map((news, index) => {
               return (
                 <div className="col-md-4" key={news.id}>

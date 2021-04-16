@@ -19,11 +19,20 @@ import MemberPage from "./pages/MemberPage";
 import PrivateRoute from "./guard/auth";
 import UserStoreProvider from "./context/UserContext";
 
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import rootReducer from "./redux/reducers/index";
+import { Provider,applyMiddleware } from "react-redux";
 
-const store = createStore(rootReducer);
+// import { createStore,applyMiddleware } from "redux";
+// import thunk from 'redux-thunk'
+// import rootReducer from "./redux/reducers/index";
+
+import CartPage from "./pages/CartPage";
+import configureStore from './redux/configureStore'
+import PdfReport from "./pages/report/PdfReport";
+import ChartReport from "./pages/report/ChartReport";
+
+// const store = createStore(rootReducer);
+const {store} = configureStore()
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -53,6 +62,9 @@ function App() {
                 <Route path="/upload">
                   <UploadPage />
                 </Route>
+                <Route path="/cart">
+                  <CartPage/>
+                </Route>
                 <PrivateRoute path="/member">
                   <MemberPage />
                 </PrivateRoute>
@@ -61,6 +73,12 @@ function App() {
                 </Route>
                 <Route path="/login">
                   <LoginPage />
+                </Route>
+                <Route path="/pdf">
+                  <PdfReport/>
+                </Route>
+                <Route path="/chart">
+                  <ChartReport/>
                 </Route>
                 <Route
                   path="/category"
